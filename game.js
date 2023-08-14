@@ -37,7 +37,6 @@ export default class Game extends Phaser.Scene {
         this.pelota.setBounce(1);
         this.pelota.body.setCircle(25);
         this.pelota.body.setFriction(0);
-        this.pelota.reboteBloqueado = false;
 
 
 
@@ -95,11 +94,6 @@ update() {
     } else {
         this.plataforma.setVelocityY(0);
 
-    if (this.pelota.reboteBloqueado) {
-        this.pelota.setVelocity(0, -this.velocidadPelota);
-        this.pelota.reboteBloqueado = false; // Permitir otro rebote después de un choque
-    }
-
     if (this.pelota.y > this.cameras.main.height) {
         this.perder();
     }
@@ -109,10 +103,10 @@ update() {
 
 sumarPuntos(_pelota,_plataforma) {
 
-    if (!this.pelota.reboteBloqueado) {
-        this.pelota.body.setVelocityX(this.pelota.body.velocity.x);
-        this.pelota.body.setVelocityY(-this.velocidadPelota);
-        this.pelota.reboteBloqueado = true; 
+    if (this.pelota.body.velocity.x > 0) {
+        this.pelota.body.setVelocity(this.velocidadPelota, -this.velocidadPelota);
+    } else {
+        this.pelota.body.setVelocity(-this.velocidadPelota, -this.velocidadPelota);
     }
 
     this.choque = this.choque + 1;
@@ -144,7 +138,7 @@ pasarNivel() {
 
     this.agregarObstaculo();
 
-    if (this.nivel == 3) {
+    if (this.nivel == 21) {
         this.ganar();
     }
     
@@ -193,13 +187,13 @@ ganar(){
     this.plataforma.disableBody(true, true);
     this.pelota.disableBody(true, true);
 
-    this.textoPerder = this.add.text(100, 200, "FELICITACIONES", {
+    this.textoGanar = this.add.text(100, 200, "FELICITACIONES", {
         fontSize: "70px",
         fill: "#FFFFFF",
         // fontStyle: "bold",
     });
 
-    this.textoPerder = this.add.text(100, 300, "reinicia la página para jugar de nuevo ", {
+    this.textoGanar = this.add.text(100, 300, "reinicia la página para jugar de nuevo ", {
         fontSize: "25px",
         fill: "#FFFFFF",
         // fontStyle: "bold",
