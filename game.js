@@ -22,6 +22,8 @@ export default class Game extends Phaser.Scene {
 
     create() {
 
+        this.cameras.main.setBackgroundColor(0x9881D5);
+
         this.plataforma = this.physics.add.sprite(400, 500, "plataforma").setScale (0.8).refreshBody();
         this.pelota = this.physics.add.sprite(200, 200, "pelota").setScale (0.3);
 
@@ -59,7 +61,7 @@ export default class Game extends Phaser.Scene {
             );
 
         this.cursors = this.input.keyboard.createCursorKeys();
-        this.velocidadPlataforma = 500;
+        this.velocidadPlataforma = 600;
         this.velocidadPelota = 300;
 
         this.pelota.setVelocity(this.velocidadPelota, this.velocidadPelota);
@@ -128,8 +130,9 @@ pasarNivel() {
     console.log ("paso de Nivel");
 
 
-    const colorAleatorio = Phaser.Display.Color.RandomRGB();
+    const colorAleatorio = Phaser.Display.Color.RandomRGB(50, 120, 120, 170);
     this.cameras.main.setBackgroundColor(colorAleatorio.color);
+
 
     this.nivel++;
     this.textoNivel.setText("Nivel: " + this.nivel);
@@ -148,8 +151,8 @@ pasarNivel() {
 
 agregarObstaculo() {
     const x = Phaser.Math.Between(50, 750);
-    const y = Phaser.Math.Between(100, 400);
-    const scale = Phaser.Math.FloatBetween(0.3, 0.8);
+    const y = Phaser.Math.Between(100, 350);
+    const scale = Phaser.Math.FloatBetween(0.2, 0.7);
     const obstaculo = this.physics.add.staticSprite(x, y, "obstaculo").setScale(scale).refreshBody();
     
     this.grupoObstaculos.add(obstaculo);
