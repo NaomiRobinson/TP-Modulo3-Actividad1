@@ -14,16 +14,16 @@ export default class Game extends Phaser.Scene {
 
     preload() {
 
-        this.load.image("plataforma", "./assets/plataforma.png");
-        this.load.image("pelota", "./assets/pelota.png");
-        this.load.image("obstaculo", "./assets/obstaculo.png");
+        this.load.image("plataforma", "./assets/hielo.png");
+        this.load.image("pelota", "./assets/pingu.png");
+        this.load.image("obstaculo", "./assets/cubo.png");
 
     }
 
     create() {
 
-        this.plataforma = this.physics.add.sprite(400, 500, "plataforma").setScale (0.4).refreshBody();
-        this.pelota = this.physics.add.sprite(200, 200, "pelota").setScale (0.5);
+        this.plataforma = this.physics.add.sprite(400, 500, "plataforma").setScale (0.8).refreshBody();
+        this.pelota = this.physics.add.sprite(200, 200, "pelota").setScale (0.3);
 
         this.physics.world.setBoundsCollision(true, true, true, false);
 
@@ -35,7 +35,7 @@ export default class Game extends Phaser.Scene {
  
         this.pelota.setCollideWorldBounds(true);
         this.pelota.setBounce(1);
-        this.pelota.body.setCircle(25);
+        this.pelota.body.setCircle(70);
         this.pelota.body.setFriction(0);
 
 
