@@ -159,7 +159,6 @@ pasarNivel() {
     }
     
 
-
 }
 
 agregarObstaculo() {
