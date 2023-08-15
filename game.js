@@ -20,6 +20,7 @@ export default class Game extends Phaser.Scene {
         this.load.audio("musicaFondo", "./assets/audio/musica.mp3");
         this.load.audio("victoria", "./assets/audio/victoria.mp3");
         this.load.audio("perder", "./assets/audio/fin.mp3");
+        this.load.audio("nivel", "./assets/audio/nivel.mp3");
 
     }
 
@@ -135,6 +136,9 @@ sumarPuntos(_pelota,_plataforma) {
 }
 
 pasarNivel() {
+
+    const nivel = this.sound.add("nivel");
+        nivel.play();
 
     console.log ("paso de Nivel");
 
