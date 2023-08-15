@@ -14,15 +14,24 @@ export default class Game extends Phaser.Scene {
 
     preload() {
 
-        this.load.image("plataforma", "./assets/hielo.png");
-        this.load.image("pelota", "./assets/pingu.png");
-        this.load.image("obstaculo", "./assets/cubo.png");
+        this.load.image("plataforma", "./assets/images/hielo.png");
+        this.load.image("pelota", "./assets/images/pingu.png");
+        this.load.image("obstaculo", "./assets/images/cubo.png");
+        this.load.audio("musicaFondo", "./assets/audio/musica.mp3");
+        this.load.audio("victoria", "./assets/audio/victoria.mp3");
+        this.load.audio("perder", "./assets/audio/fin.mp3");
 
     }
 
     create() {
 
         this.cameras.main.setBackgroundColor(0x9881D5);
+
+        const musicaFondo = this.sound.add("musicaFondo");
+        musicaFondo.play();
+        musicaFondo.setLoop(true);
+        musicaFondo.setVolume(0.5);
+
 
         this.plataforma = this.physics.add.sprite(400, 500, "plataforma").setScale (0.8).refreshBody();
         this.pelota = this.physics.add.sprite(200, 200, "pelota").setScale (0.3);
@@ -118,7 +127,7 @@ sumarPuntos(_pelota,_plataforma) {
     console.log ("choque " + this.choque)
     this.textoPuntos.setText("Puntaje:" + this.puntos);
 
-    if (this.choque == 3) {
+    if (this.choque == 10) {
         this.choque = 0;
         this.pasarNivel();
     }
@@ -159,6 +168,9 @@ agregarObstaculo() {
 }
 
 perder(){
+    this.sound.stopAll();
+    const perder = this.sound.add("perder");
+    perder.play();
     this.grupoObstaculos.getChildren().forEach(obstaculo => {
         obstaculo.disableBody(true, true);
     });
@@ -184,6 +196,9 @@ perder(){
 }
 
 ganar(){
+    this.sound.stopAll();
+    const victoria = this.sound.add("victoria");
+    victoria.play();
     this.grupoObstaculos.getChildren().forEach(obstaculo => {
         obstaculo.disableBody(true, true);
     });
